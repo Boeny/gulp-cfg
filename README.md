@@ -69,7 +69,9 @@
 
 Если в качестве аргументов задана функция, то она вычисляет аргумент:
 
-	require('gulp-generator')({
+	const util = require('gulp-util');
+    
+    require('gulp-generator')({
 		css: {
 			_return: true,
 			src: 'src/style.less',
