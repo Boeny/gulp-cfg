@@ -151,7 +151,7 @@
 		'buildTests':{
 			depends: 'default',
 			_return: true,
-			pipe: [{src: './tests/*.js'}, 'sourcemaps.init', 'babel', {dest: 'built-tests'}]
+			pipe: [{src: './tests/*.js'}, 'babel', {dest: 'built-tests'}]
 		},
 
 		'test':{
@@ -169,13 +169,11 @@
 	
 	gulp.task('buildTests', ['default'], function(){
 		return gulp.src('./tests/*.js')
-			.pipe(soucemaps.init())
 			.pipe(babel())
 			.pipe(gulp.dest('built-tests'));
 	});
 	gulp.task('test', ['buildTests'], function(){
 		gulp.src('./built-tests/test.js', {read:false})
-			.pipe(soucemaps.init())
 			.pipe(mocha({reporter:'nyan'}));
 	});
 
