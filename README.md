@@ -133,13 +133,11 @@
 Тело таска может быть функцией
 
 	require('gulp-cfg')({
-		default: function(done){
-			var gulp = require('gulp');
-
+		default: function(gulp, done){
 			gulp.src('src/index.js')
 				.pipe(require('gulp-uglify')())
 				.pipe(gulp.dest('dist/bundle.js'));
-
+			
 			gulp.watch('less/**/*.less');
 
 			done();
@@ -227,7 +225,7 @@
 		'tdd-single': {
 			_return: true,
 			watch: ['src/**/*.spec.js', {change: (file) => {
-				return {src: file.path, mocha: {compilers: babel}};
+				return {src: file.path, mocha: {compilers: 'babel'}};
 			}]
 		},
 		
@@ -237,6 +235,8 @@
 
 В ином случае вторым аргументом должен быть объект/массив, описывающий поток, который будет вызываться в __watch(first_argument, (files) => files.pipe...)__
 
+	const util = require('gulp-util');
+	
 	require('gulp-cfg')({
 		'css:watch':{
 			watch: [
