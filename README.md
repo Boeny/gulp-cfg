@@ -89,6 +89,31 @@
 		}
 	});
 
+# Поле \_return
+Если нужно передать результат обработки от одного таска другому, нужно использовать поле __\_return__:
+
+	require('gulp-generator')({ default: {
+		_return: true,
+		src: './src/index.js',
+		pipe: [
+			'babel', 'uglify',
+			{dest: 'dist/bundle.js'}
+		]
+	}});
+
+Будет преобразовано в:
+
+	const babel = require('gulp-babel');
+	const uglify = require('gulp-uglify');
+	
+	gulp.task('default', function(){
+		return gulp.src('./src/index.js')
+			.pipe(babel())
+			.pipe(uglify())
+			.pipe(gulp.dest('dist/bundle.js'));
+	});
+	
+
 # task как массив потоков
 Таск может быть массивом потоков, если в массиве хотя бы один объект содержит больше одного ключа, причем поле __\_return__ может быть только у последнего:
 
